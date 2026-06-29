@@ -14,6 +14,11 @@ __pycache__/
 *.bin
 *.safetensors
 
+# Demo artifacts generated when running examples
+examples/**/*.png
+examples/**/*.pdf
+examples/**/*.index
+
 # OS / editor
 .DS_Store
 .vscode/
