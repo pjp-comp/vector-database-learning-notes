@@ -16,7 +16,7 @@ This file is the map: each type, what changes, and which phase covers it.
 The baseline loop: chunk docs → embed → store → at query time embed the question,
 retrieve top-k nearest chunks, stuff them into the prompt, generate.
 - **Here:** [Phase 4](learning_notes.md#deep-dive-phase-4--building-real-rag)
-  (`examples/phase4/example_4b_rag.py`, `examples/pdf-rag/`).
+  (`modules/04-rag-basics/example_4b_rag.py`, `bonus/pdf-rag/`).
 - **Good for:** getting started, FAQ bots, moderate doc sets.
 - **Weak spots:** arbitrary chunking, "similarity ≠ relevance," no quality control.
 
@@ -40,7 +40,7 @@ indexes and tools.
 A structured cousin of agentic RAG: the model **grades** the retrieved chunks
 before trusting them. If they're weak, it **falls back** (e.g. rewrite + retry, or
 a different source) instead of answering from bad context.
-- **Here:** [Phase 6b demo](examples/phase6b-crag/example.py).
+- **Here:** [Module 07 demo](modules/07-corrective-rag/example.py).
 - **Good for:** reducing hallucinations when the knowledge base has gaps.
 
 ## 5. Graph RAG

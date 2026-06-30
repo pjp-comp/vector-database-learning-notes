@@ -61,7 +61,7 @@ answer from *your* documents, recommendations, and more.
 > store the numbers, then answer questions by finding the closest numbers.
 
 Everything below builds this up step by step, with a runnable example for each phase
-(see the [examples/](examples/) folder).
+(see the [modules/](modules/) folder).
 
 ---
 
@@ -127,14 +127,14 @@ The flow is always the same 3 steps:
 3. **Compare a new query's numbers to the stored ones** to find the closest match
 
 ### Files in this phase
-- [examples/phase1/example.py](examples/phase1/example.py) — the runnable demo
+- [modules/01-embeddings/example.py](modules/01-embeddings/example.py) — the runnable demo
 
 ### Commands to run it
 ```bash
 cd /Users/pragneshpatel/ai/embedding
 source .venv/bin/activate            # activate the virtual env
 pip install -r requirements.txt      # one time
-python examples/phase1/example.py
+python modules/01-embeddings/example.py
 ```
 First run is slower (downloads the ~90 MB model); after that it is cached and fast.
 (Full setup details are in [README.md](README.md).)
@@ -235,14 +235,14 @@ Move from the in-memory demo to a setup that has the three things a *real*
 vector database has: **metadata**, a **real index (ANN)**, and **filtering**.
 
 ### Files in this phase
-- [examples/phase2/example.py](examples/phase2/example.py) — upgraded demo using a real **FAISS** index
+- [modules/02-vector-databases/example.py](modules/02-vector-databases/example.py) — upgraded demo using a real **FAISS** index
 
 ### Commands to run it
 ```bash
 cd /Users/pragneshpatel/ai/embedding
 source .venv/bin/activate            # activate the virtual env
 pip install -r requirements.txt      # one time (includes faiss-cpu)
-python examples/phase2/example.py
+python modules/02-vector-databases/example.py
 ```
 
 ### What's new vs Phase 1
@@ -294,13 +294,13 @@ The demo now looks like a real vector DB in shape: **store (vector + data + meta
 **scale**: swapping the exact `IndexFlatIP` for an approximate index (HNSW/IVF/PQ)
 and persisting it. The meaning and the workflow stay identical.
 
-→ Example: [examples/phase2/example.py](examples/phase2/example.py)
+→ Example: [modules/02-vector-databases/example.py](modules/02-vector-databases/example.py)
 
 ---
 
 ## Deep dive: Phase 3 — Scaling the index (ANN)
 
-> Example: [examples/phase3/example.py](examples/phase3/example.py)
+> Example: [modules/03-scaling-ann/example.py](modules/03-scaling-ann/example.py)
 
 ### The problem, with a real-life picture
 In Phase 2 we compared the query against **every** stored vector. With 8 items
@@ -317,7 +317,7 @@ Here's the key insight that powers real vector databases:
 > *99%-as-good* match found **100× faster** is what you actually want.
 
 That trade — give up a tiny bit of accuracy for a huge speed gain — is called
-**Approximate Nearest Neighbour (ANN)**. Our [phase3 example](examples/phase3/example.py)
+**Approximate Nearest Neighbour (ANN)**. Our [phase3 example](modules/03-scaling-ann/example.py)
 shows it: on 50,000 vectors the approximate search is far faster and lands on
 essentially the same answer.
 
@@ -349,8 +349,8 @@ scale, and persistence makes it durable. Nothing about *meaning* changes.
 
 ## Deep dive: Phase 4 — Building real RAG
 
-> Examples: [chunking](examples/phase4/example_4a_chunking.py) ·
-> [RAG loop](examples/phase4/example_4b_rag.py) · [over a PDF](examples/pdf-rag/example.py)
+> Examples: [chunking](modules/04-rag-basics/example_4a_chunking.py) ·
+> [RAG loop](modules/04-rag-basics/example_4b_rag.py) · [over a PDF](bonus/pdf-rag/example.py)
 
 ### What RAG is, in one breath
 **RAG = Retrieval-Augmented Generation.** You *retrieve* the relevant pieces of
@@ -380,7 +380,7 @@ when you search you get back exactly the right card — not the whole book.
 4. **Retrieve**: embed the user's question, find the nearest chunks.
 5. **Generate**: hand those chunks to an LLM as context; it answers using them.
 
-Our [PDF RAG example](examples/pdf-rag/example.py) does steps 1–4 for real on an
+Our [PDF RAG example](bonus/pdf-rag/example.py) does steps 1–4 for real on an
 actual PDF and fakes step 5 (so it runs with no API key). Swap the fake for a real
 LLM call and you have a working RAG app.
 
@@ -399,7 +399,7 @@ the whole thing feels.
 
 ## Deep dive: Phase 5 — Better retrieval quality
 
-> Example: [examples/phase5/example.py](examples/phase5/example.py)
+> Example: [modules/05-retrieval-quality/example.py](modules/05-retrieval-quality/example.py)
 
 Plain vector search is good, but two upgrades fix most of its weak spots.
 
@@ -411,7 +411,7 @@ the opposite: perfect on exact terms, blind to meaning.
 **Hybrid search runs both and blends the scores**, so you catch *"young cat" ≈
 "kitten"* (meaning) **and** an exact `E-404` (keyword). The classic keyword
 algorithm is **BM25**; our example uses a simpler word-overlap to show the idea.
-The [phase5 example](examples/phase5/example.py) shows a query where vector-only
+The [phase5 example](modules/05-retrieval-quality/example.py) shows a query where vector-only
 search struggles but hybrid puts the right doc on top.
 
 ### 2. Re-ranking — a careful second look
@@ -443,7 +443,7 @@ cross-encoder (re-rank), improve the question (transform), and track it all
 
 ## Deep dive: Phase 6 — Advanced & agentic retrieval
 
-> Example: [examples/phase6/example.py](examples/phase6/example.py)
+> Example: [modules/06-agentic-rag/example.py](modules/06-agentic-rag/example.py)
 
 Everything so far retrieves **once**. The frontier is making retrieval **smarter
 and more interactive**.
@@ -456,7 +456,7 @@ like a researcher:
 3. If not, **rewrite the query** (or pick a different source) and search again.
 4. Repeat until satisfied, then answer.
 
-Our [phase6 example](examples/phase6/example.py) shows a vague question getting a
+Our [phase6 example](modules/06-agentic-rag/example.py) shows a vague question getting a
 weak first result; the agent notices the low score, rewrites the query, and the
 second search succeeds. Real agents use an **LLM** to do the judging and rewriting.
 
@@ -480,7 +480,7 @@ types and sources.
 
 ## Deep dive: Image embeddings (searching pictures)
 
-> Example: [examples/image-embeddings/example.py](examples/image-embeddings/example.py) ·
+> Example: [bonus/image-embeddings/example.py](bonus/image-embeddings/example.py) ·
 > Reference: [How do image embeddings work? (Outcome School)](https://outcomeschool.com/blog/how-do-image-embeddings-work)
 
 ### The same idea, now for pictures
@@ -505,7 +505,7 @@ internals, just the idea: picture in, meaning-numbers out.)
 The star model is **CLIP**. Its superpower: it embeds **images and text into the
 same number-space**. So a photo of a red circle and the words *"a red circle"* land
 near each other. That unlocks **cross-modal search** — type words, get matching
-pictures (and vice versa). Our [image example](examples/image-embeddings/example.py)
+pictures (and vice versa). Our [image example](bonus/image-embeddings/example.py)
 shows both image-to-image similarity and text-to-image search.
 
 ### Why it matters
@@ -523,8 +523,8 @@ storing and searching vectors applies unchanged.
 ## Phase 7 — Latest market direction (Vectorless RAG with PageIndex)
 
 > A different *philosophy* of retrieval, not just a bigger index.
-> Examples: [tiny demo](examples/phase7/example.py) ·
-> [over a PDF](examples/pdf-vectorless/example.py)
+> Examples: [tiny demo](modules/08-vectorless-rag/example.py) ·
+> [over a PDF](bonus/pdf-vectorless/example.py)
 
 Reference: *What Is PageIndex? How to Build a Vectorless RAG System
 (No Embeddings, No Vector DB).*

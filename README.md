@@ -43,33 +43,38 @@ When the env is active your prompt shows `(.venv)`. To leave it later: `deactiva
 
 ## Run the examples
 
-There is one runnable example per phase in [examples/](examples/). Each is heavily
-commented for beginners and prints what it's doing. With the env activated:
+Runnable, beginner-commented examples live in [modules/](modules/) (the core
+curriculum) and [bonus/](bonus/) (images + real PDFs). Each prints what it's
+doing. With the env activated:
 
-**Core path (one per phase):**
+**Core path (one module at a time):**
 ```bash
-python examples/phase1/example.py              # the core idea, in memory
-python examples/phase2/example.py              # real FAISS index + metadata + filtering
-python examples/phase3/example.py              # ANN at scale (brute force vs HNSW)
-python examples/phase4/example_4a_chunking.py  # splitting documents into chunks
-python examples/phase4/example_4b_rag.py       # the full RAG loop
-python examples/phase5/example.py              # hybrid search + re-ranking
-python examples/phase6/example.py              # agentic (search, judge, retry)
-python examples/phase6b-crag/example.py        # corrective RAG (grade, correct, refuse)
-python examples/phase7/example.py              # vectorless RAG (PageIndex style)
+python modules/01-embeddings/example.py               # the core idea, in memory
+python modules/02-vector-databases/example.py         # real FAISS index + metadata + filtering
+python modules/03-scaling-ann/example.py              # ANN at scale (brute force vs HNSW)
+python modules/04-rag-basics/example_4a_chunking.py   # splitting documents into chunks
+python modules/04-rag-basics/example_4b_rag.py        # the full RAG loop
+python modules/05-retrieval-quality/example.py        # hybrid search + re-ranking
+python modules/06-agentic-rag/example.py              # agentic (search, judge, retry)
+python modules/07-corrective-rag/example.py           # corrective RAG (grade, correct, refuse)
+python modules/08-vectorless-rag/example.py           # vectorless RAG (PageIndex style)
 ```
 
 **Bonus demos (apply the ideas to images and real PDFs):**
 ```bash
-python examples/image-embeddings/example.py    # pictures as vectors + text-to-image (CLIP)
-python examples/pdf-rag/example.py             # classic RAG over a real PDF
-python examples/pdf-vectorless/example.py      # SAME PDF answered with NO embeddings
+python bonus/image-embeddings/example.py    # pictures as vectors + text-to-image (CLIP)
+python bonus/pdf-rag/example.py             # classic RAG over a real PDF
+python bonus/pdf-vectorless/example.py      # SAME PDF answered with NO embeddings
 ```
 
-> Phases that would normally call an LLM (4b, 6, both PDF demos) use a small,
-> clearly-labeled **fake LLM** so everything runs with no API key. The retrieval
-> parts are real. Each example folder also has its own short `README.md`.
+> Modules that would normally call an LLM (04b, 06, 07, both PDF demos) use a
+> small, clearly-labeled **fake LLM** so everything runs with no API key. The
+> retrieval parts are real. Each folder also has its own short `README.md`.
 > Tip: run the two PDF demos back-to-back to compare embedding RAG vs. vectorless.
+
+> **Following the roadmap?** [ROADMAP.md](ROADMAP.md) is the beginner
+> AI-Engineer learning path and tells you which module to do when (and what to
+> learn beyond this repo).
 
 ---
 
@@ -77,70 +82,41 @@ python examples/pdf-vectorless/example.py      # SAME PDF answered with NO embed
 
 | Path | What it is |
 |---|---|
-| [README.md](README.md) | This index — setup, file map, and the learning roadmap |
-| [learning_notes.md](learning_notes.md) | **The full guide** — start here; plain-language theory for every phase |
+| [ROADMAP.md](ROADMAP.md) | **The beginner AI Engineer roadmap** — the learning path; start here |
+| [README.md](README.md) | This index — setup, file map, and run commands |
+| [learning_notes.md](learning_notes.md) | **The full theory guide** — plain-language explanation for every module |
 | [rag_architecture_types.md](rag_architecture_types.md) | One-page map of the RAG architecture types (naive, hybrid, agentic, CRAG, graph, vectorless, multi-modal) |
-| [examples/](examples/) | Runnable, commented examples: one per phase (`phase1` … `phase7`) plus bonus `image-embeddings`, `pdf-rag`, `pdf-vectorless` |
+| [modules/](modules/) | The core curriculum: `01-embeddings` … `08-vectorless-rag`, plus roadmap-only modules `09`–`12` and `capstone` |
+| [bonus/](bonus/) | Applied demos: `image-embeddings`, `pdf-rag`, `pdf-vectorless` |
 | [requirements.txt](requirements.txt) | Python dependencies |
 
-**New to this?** Read the "Start here" section of
+**New to this?** Read [ROADMAP.md](ROADMAP.md), then the "Start here" section of
 **[learning_notes.md](learning_notes.md#start-here-read-this-first-if-youre-brand-new)**,
-then run `examples/phase1/example.py`.
+then run `modules/01-embeddings/example.py`.
 
 ---
 
 ## Learning roadmap
 
-A path from first principles to the techniques used in production AI systems today.
-Each line has a one-line "what it is" so you know why it's on the list. Ask me to
-expand any single item and I'll write the deep dive.
+The full beginner **AI Engineer** learning path now lives in its own file:
+**[ROADMAP.md](ROADMAP.md)** — it sequences the modules below and adds the parts a
+real job expects (LLM APIs, app-building, evaluation, deployment, a capstone).
 
-### Phase 1 — The core idea (in memory)
-- **Embeddings** — turning text into a list of numbers (a vector) that captures meaning.
-- **Similarity metrics** — cosine, dot product, euclidean; how "closeness" is measured.
-- **Semantic search** — finding the nearest meaning instead of matching exact words.
-- → details in [learning_notes.md](learning_notes.md#phase-1--the-core-idea-in-memory-demo)
+The deep theory for the retrieval/RAG modules (01–08) is in
+[learning_notes.md](learning_notes.md), which is organized by "phase." This table
+maps those phases to the module folders:
 
-### Phase 2 — Real vector databases
-- **Metadata storage** — keeping the original text + tags (category, date) beside each vector.
-- **A real index (FAISS)** — replacing the hand-written loop with a proper search index.
-- **Metric comparison** — seeing cosine vs. euclidean behave on the same query.
-- **Metadata filtering** — narrowing results by tags alongside similarity.
-- → details in [learning_notes.md](learning_notes.md#phase-2--real-vector-databases)
+| learning_notes "phase" | Module folder |
+|---|---|
+| Phase 1 — the core idea | [modules/01-embeddings](modules/01-embeddings/) |
+| Phase 2 — real vector databases | [modules/02-vector-databases](modules/02-vector-databases/) |
+| Phase 3 — scaling the index (ANN) | [modules/03-scaling-ann](modules/03-scaling-ann/) |
+| Phase 4 — building real RAG | [modules/04-rag-basics](modules/04-rag-basics/) |
+| Phase 5 — better retrieval quality | [modules/05-retrieval-quality](modules/05-retrieval-quality/) |
+| Phase 6 — agentic retrieval | [modules/06-agentic-rag](modules/06-agentic-rag/) |
+| Phase 6b — corrective RAG (CRAG) | [modules/07-corrective-rag](modules/07-corrective-rag/) |
+| Phase 7 — vectorless RAG | [modules/08-vectorless-rag](modules/08-vectorless-rag/) |
+| (image embeddings deep dive) | [bonus/image-embeddings](bonus/image-embeddings/) |
 
-### Phase 3 — Scaling the index (ANN)
-- **Nearest-neighbour problem** — why scanning every vector breaks past millions of items.
-- **Approximate Nearest Neighbour (ANN)** — trading a sliver of accuracy for huge speed.
-  - **HNSW** — a layered graph: big jumps across far data, then fine-tuning.
-  - **IVF** — cluster the vectors, then search only the relevant clusters.
-  - **PQ (Product Quantization)** — compress vectors (e.g. 512 → 8 bytes) to fit memory.
-- **Persistence** — saving and loading the index to disk so it survives restarts.
-
-### Phase 4 — Building real RAG
-- **Document loading & chunking** — splitting PDFs/docs into pieces worth embedding.
-- **Chunking strategies** — fixed-size, overlap, sentence/semantic chunking and their trade-offs.
-- **Retrieval-Augmented Generation (RAG)** — retrieving relevant chunks and feeding them to an LLM.
-- **Production vector DBs** — Chroma (local), then Pinecone / Weaviate / Qdrant / pgvector (hosted).
-- **Embedding model choice** — open models vs. API embeddings; dimensions, cost, quality.
-
-### Phase 5 — Better retrieval quality
-- **Hybrid search** — combining keyword (BM25) with vector search for the best of both.
-- **Re-ranking** — a cross-encoder re-orders the top results so the best one lands first.
-- **Query transformation** — rewriting / expanding the question (multi-query, HyDE) before search.
-- **Evaluation** — measuring retrieval and answer quality (RAGAS-style metrics) instead of guessing.
-
-### Phase 6 — Advanced & agentic retrieval
-- **Multi-modal embeddings** — searching images, audio, and code with the same idea
-  (see the [image-embeddings](examples/image-embeddings/) demo and the
-  [deep dive](learning_notes.md#deep-dive-image-embeddings-searching-pictures)).
-- **Knowledge graphs / GraphRAG** — using relationships between facts, not just similarity.
-- **Agentic RAG** — an agent decides what to retrieve, refines, and retrieves again in a loop.
-- **Long-context vs. retrieval** — when a huge context window replaces retrieval, and when it doesn't.
-
-### Phase 7 — Latest market direction
-- **Vectorless RAG (PageIndex)** — drop embeddings/vector DB; let the LLM *reason* over a
-  document's structure (table-of-contents tree) to pick the right section. Aims to fix
-  chunking and "similarity ≠ relevance" problems. Reference: *What Is PageIndex? How to
-  Build a Vectorless RAG System (No Embeddings, No Vector DB).*
-- **Reasoning-based retrieval** — the broader shift from "find similar" to "decide what's relevant".
-- → details in [learning_notes.md](learning_notes.md#phase-7--latest-market-direction-vectorless-rag-with-pageindex)
+Modules **09–12** and the **capstone** are roadmap-stage guides (LLM APIs, apps,
+evaluation, deployment) — see [ROADMAP.md](ROADMAP.md).
