@@ -126,7 +126,7 @@ The flow is always the same 3 steps:
 
 ### Commands to run it
 ```bash
-cd /Users/pragneshpatel/ai/embading
+cd /Users/pragneshpatel/ai/embedding
 source .venv/bin/activate            # activate the virtual env
 pip install -r requirements.txt      # one time
 python examples/phase1/example.py
@@ -234,7 +234,7 @@ vector database has: **metadata**, a **real index (ANN)**, and **filtering**.
 
 ### Commands to run it
 ```bash
-cd /Users/pragneshpatel/ai/embading
+cd /Users/pragneshpatel/ai/embedding
 source .venv/bin/activate            # activate the virtual env
 pip install -r requirements.txt      # one time (includes faiss-cpu)
 python examples/phase2/example.py

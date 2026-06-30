@@ -26,7 +26,7 @@ This project uses a virtual environment (`.venv`) and `requirements.txt`.
 
 ```bash
 # 1. Go into the project folder
-cd /Users/pragneshpatel/ai/embading
+cd /Users/pragneshpatel/ai/embedding
 
 # 2. Activate the virtual environment
 source .venv/bin/activate
