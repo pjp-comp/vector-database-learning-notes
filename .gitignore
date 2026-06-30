@@ -15,8 +15,8 @@ __pycache__/
 *.safetensors
 
 # Demo artifacts generated when running examples
-examples/**/*.png
-examples/**/*.pdf
+# examples/**/*.png
+# examples/**/*.pdf
 examples/**/*.index
 
 # OS / editor

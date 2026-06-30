@@ -105,6 +105,11 @@ Everything in this project is teaching the middle part — *store and retrieve b
 meaning* — which is the piece that makes modern AI apps actually useful on
 **your** data.
 
+> **Want the bird's-eye view of RAG designs?** See
+> [rag_architecture_types.md](rag_architecture_types.md) — a one-page map of the
+> RAG family (naive, hybrid, agentic, corrective/CRAG, graph, vectorless,
+> multi-modal) and which phase covers each.
+
 ---
 
 ## Phase 1 — The Core Idea (in-memory demo)

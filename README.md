@@ -55,6 +55,7 @@ python examples/phase4/example_4a_chunking.py  # splitting documents into chunks
 python examples/phase4/example_4b_rag.py       # the full RAG loop
 python examples/phase5/example.py              # hybrid search + re-ranking
 python examples/phase6/example.py              # agentic (search, judge, retry)
+python examples/phase6b-crag/example.py        # corrective RAG (grade, correct, refuse)
 python examples/phase7/example.py              # vectorless RAG (PageIndex style)
 ```
 
@@ -78,6 +79,7 @@ python examples/pdf-vectorless/example.py      # SAME PDF answered with NO embed
 |---|---|
 | [README.md](README.md) | This index — setup, file map, and the learning roadmap |
 | [learning_notes.md](learning_notes.md) | **The full guide** — start here; plain-language theory for every phase |
+| [rag_architecture_types.md](rag_architecture_types.md) | One-page map of the RAG architecture types (naive, hybrid, agentic, CRAG, graph, vectorless, multi-modal) |
 | [examples/](examples/) | Runnable, commented examples: one per phase (`phase1` … `phase7`) plus bonus `image-embeddings`, `pdf-rag`, `pdf-vectorless` |
 | [requirements.txt](requirements.txt) | Python dependencies |
 
